@@ -17,7 +17,11 @@ import { HousingLocation } from '../housinglocation';
       </form>
     </section>
     <section class="results">
-      <app-housing-location></app-housing-location>
+      <!-- In the template property of the @Component decorator, update the code to match the code below: -->
+      <!-- When adding a property binding to a component tag, we use the [attribute] = "value" syntax to notify Angular that the assigned value should be 
+      treated as a property from the component class and not a string value. -->
+      <!-- The value on the right-hand side is the name of the property from the HomeComponent. -->
+      <app-housing-location [housingLocation]="housingLocation"]></app-housing-location>
     </section>
   `,
   styleUrls: ['./home.component.css'],
