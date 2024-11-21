@@ -52,9 +52,10 @@ export class HomeComponent {
   filteredLocationList: HousingLocation[] = [];
 
   constructor() {
-    this.housingLocationList = this.housingService.getAllHousingLocations();
-    // The filteredLocationList should contain the total set of housing locations values by default when the page loads. Update the constructor for the HomeComponent to set the value.
-    this.filteredLocationList = this.housingLocationList;
+    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+      this.housingLocationList = housingLocationList;
+      this.filteredLocationList = housingLocationList;
+    });
   }
 
   // This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property. You can update this function 

@@ -64,11 +64,10 @@ export class DetailsComponent {
   });
 
   constructor() {
-    // This code gives the DetailsComponent access to the ActivatedRoute router feature that enables you to have access to the data about the current route. 
-    // In the constructor, the code converts the id parameter acquired from the route from a string to a number.
-    // this.housingLocationId = Number(this.route.snapshot.params['id']);
-    const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+    this.housingService.getHousingLocationById(housingLocationId).then((housingLocation) => {
+      this.housingLocation = housingLocation;
+    });
   }
 
   submitApplication() {
