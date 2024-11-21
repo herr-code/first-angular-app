@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
       </a>
       <section class="content">
         <!-- <app-home></app-home> -->
+         <!-- Esta directiva  es donde cada componente que enrutemos sera desplegado -->
          <router-outlet></router-outlet>
       </section>
     </main>
