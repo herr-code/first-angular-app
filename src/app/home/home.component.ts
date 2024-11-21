@@ -17,8 +17,10 @@ import { HousingService } from '../housing.service';
     <!-- In home.component.ts, in @Component, update the template property with this code. -->
     <section>
       <form>
-        <input type="text" placeholder="Filter by city" />
-        <button class="primary" type="button">Search</button>
+        <!-- Update the HomeComponent template to include a template variable in the input element called #filter. -->
+        <input type="text" placeholder="Filter by city" #filter/>
+        <!-- The argument to the function is the value property of the filter template variable. Specifically, the .value property from the input HTML element. -->
+        <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
       </form>
     </section>
     <section class="results">
@@ -33,7 +35,7 @@ import { HousingService } from '../housing.service';
       <!-- Note, in the code [housingLocation] = "housingLocation" the housingLocation value now refers to the variable used in the ngFor directive. Before this change, 
       it referred to the property on the HomeComponent class. -->
       <app-housing-location 
-        *ngFor="let housingLocation of housingLocationList"
+        *ngFor="let housingLocation of filteredLocationList"
         [housingLocation]="housingLocation"
       >
       </app-housing-location>
@@ -46,8 +48,24 @@ export class HomeComponent {
   // update the code to pull the data from the HousingService.
   housingLocationList: HousingLocation[] = [];
   housingService: HousingService = inject(HousingService);
+  // The filteredLocationList hold the values that match the search criteria entered by the user.
+  filteredLocationList: HousingLocation[] = [];
 
   constructor() {
     this.housingLocationList = this.housingService.getAllHousingLocations();
+    // The filteredLocationList should contain the total set of housing locations values by default when the page loads. Update the constructor for the HomeComponent to set the value.
+    this.filteredLocationList = this.housingLocationList;
+  }
+
+  // This function uses the String filter function to compare the value of the text parameter against the housingLocation.city property. You can update this function 
+  // to match against any property or multiple properties for a fun exercise.
+  filterResults(text: string) {
+    if (!text) {
+      this.filteredLocationList = this.housingLocationList;
+      return;
+    }
+    this.filteredLocationList = this.housingLocationList.filter((housingLocation) =>
+      housingLocation?.city.toLowerCase().includes(text.toLowerCase()),
+    );
   }
 }
