@@ -113,7 +113,7 @@ export class HousingService {
   getAllHousingLocations(): HousingLocation[] {
     return this.housingLocationList;
   }
-  getHousingLocationById(id: number): HousingLocation | undefined {
+  getHousingLocationById(id: number): HousingLocation | undefined { // Usamo un tipo Union Type ya que no sabemos si al pasar un id se encontrara en el array o no
     return this.housingLocationList.find((housingLocation) => housingLocation.id === id);
   }
 
